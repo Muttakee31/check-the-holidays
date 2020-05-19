@@ -3,6 +3,11 @@
     background-color: rgba(255, 181, 196, 0.42);
 }
 
+.react-calendar__tile--active {
+    background: #006edc !important;
+    color: white !important;
+}
+
 #sidebar {
     width: 250px;
     position: fixed;
