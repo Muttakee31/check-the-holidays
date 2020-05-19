@@ -1,54 +1,76 @@
 import Head from 'next/head'
+import {Calendar} from "react-calendar";
+import React, {useEffect, useState} from "react";
+import {holiday_list} from "../config";
+import Sidebar from "../Components/Sidebar";
+import dayjs from "dayjs";
+
 
 export default function Home() {
+    const [date, setDate] = useState(new Date());
+
+    const [holidays, setHolidays] = useState(holiday_list);
+    const [offList, setOfflist] = useState([]);
+
+    useEffect( () => {
+        let temp = [];
+        holidays.map((instant, index) => {
+            instant.date.map((ins, ind)=> {
+                temp.push(ins);
+            })
+        });
+        setOfflist(temp);
+    }, []);
+
+    const onChange = () => {
+    };
+
+    const activateTab = (value, event) => {
+        console.log(value);
+    };
+
+    const setNewDate = (date) => {
+        setDate(date);
+    };
+
+   const tileClassName = ({ date, view }) => {
+        // Add class to tiles in month view only
+       if (offList.find(dDate => (dayjs(dDate).format('DD-MM-YYYY') === dayjs(date).format('DD-MM-YYYY')))) {
+           return 'holiday';
+       }
+    };
+
+
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
+        <title>Know official holidays</title>
         <link rel="icon" href="/favicon.ico" />
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+              crossOrigin="anonymous" />
+
       </Head>
 
+        <Sidebar setDate={setNewDate}/>
       <main>
         <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to Holiday Calendar
         </h1>
 
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
+          <Calendar
+              onChange={onChange}
+              value={date}
+              tileClassName={tileClassName}
+              calendarType='Arabic'
+              onClickDay={activateTab}
+          />
 
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
 
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
 
-          <a
-            href="https://github.com/zeit/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
       </main>
 
-      <footer>
+      {/*<footer>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
@@ -57,7 +79,7 @@ export default function Home() {
           Powered by{' '}
           <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
         </a>
-      </footer>
+      </footer>*/}
 
       <style jsx>{`
         .container {
@@ -114,9 +136,9 @@ export default function Home() {
         }
 
         .title {
-          margin: 0;
+          padding-bottom: 30px;
           line-height: 1.15;
-          font-size: 4rem;
+          font-size: 2rem;
         }
 
         .title,
