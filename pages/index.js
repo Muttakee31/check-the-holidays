@@ -74,7 +74,7 @@ export default function Home() {
               onChange={onChange}
               value={date}
               tileClassName={tileClassName}
-              calendarType='Arabic'
+              calendarType='Hebrew'
               onClickDay={activateTab}
           />
 

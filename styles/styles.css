@@ -24,7 +24,7 @@
     flex-direction: column;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
-    padding: 24px 0px 24px 0px;
+    padding: 24px 0 24px 0;
     background: #fff;
 
 /*@include breakpoint(small-only) {*/
@@ -55,6 +55,11 @@
     display: none;
 }
 
+.react-calendar {
+    border: 1px solid #eaeaea;
+    box-shadow: 3px 6px 20px 0 rgba(0,0,0,.03);
+}
+
 .main-content.sidebar-collapsed #sidebar .menus a {
     width: 36px;
     border-radius: 50%;
@@ -81,7 +86,7 @@
 
 .main {
     width: calc(100% - 250px);
-    padding: 20px 20px 0px 20px;
+    padding: 20px 20px 0 20px;
     transition: all 0.3s;
     position: absolute;
     right: 0;
@@ -106,3 +111,46 @@
 /*    width: 100%;*/
 /*}*/
 }
+
+.custom-selector-container {
+    width: 480px;
+    margin-left: 10px;
+}
+
+.custom-selector-container:nth-child(1), .custom-selector-container:nth-child(2) {
+     width: calc(65% - 5px);
+}
+
+.custom-selector-container:nth-child(1) {
+     margin-right: 10px;
+ }
+
+.custom-selector-container:last-child {
+     margin-top: 10px;
+     width: 100%;
+ }
+
+.custom-selector {
+    background: #f0f1f2;
+    border-radius: 8px;
+    border: 0;
+    padding: 12px 25px;
+    height: 48px;
+
+    /*@include breakpoint(small-up) {
+        background-image: url("../assets/down-arrow.png") !important;
+        background-repeat: no-repeat !important;
+        background-position: calc(100% - 3px) center !important;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }*/
+}
+.custom-selector:focus, .custom-selector:active {
+     background: #f0f1f2;
+ }
+
+/*@include breakpoint(small-only) {
+    padding: 12px;
+    height: 44px;
+}*/
