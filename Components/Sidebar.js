@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import {holiday_list} from "../config";
 import dayjs from "dayjs";
 
-const Sidebar = ({setDate}) => {
+const Sidebar = ({tab, setDate}) => {
 
-    const [tab, activateTab] = useState(null);
+    const [activeTab, activateTab] = useState(null);
     const [holidayList, setHolidayList] = useState([]);
 
     const switchTab = (index, date) => {
@@ -14,7 +14,10 @@ const Sidebar = ({setDate}) => {
 
     useEffect(() => {
         setHolidayList(holiday_list);
-    }, );
+        if (tab!== null) {
+            activateTab(tab);
+        }
+    }, [tab] );
 
     return (
         <div className="sidebar" id="sidebar">
@@ -31,8 +34,8 @@ const Sidebar = ({setDate}) => {
                     :
                     holidayList.map((instant, index)=>{
                         return (
-                            <div className={tab===index?'active':''} onClick={()=> switchTab(index, instant.date[0])}
-                                 style={{padding: '20px 4px', cursor:'pointer', borderBottom: '1px solid #f2f2f2'}}>
+                            <div className={Number(activeTab) === instant.id?'active-tab':''} onClick={()=> switchTab(instant.id, instant.date[0])}
+                                 style={{padding: '20px 8px', cursor:'pointer', borderBottom: '1px solid #f2f2f2'}}>
                                 <div className='row'>
                                     <div className='col'>
                                         {instant.title}

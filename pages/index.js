@@ -10,23 +10,30 @@ export default function Home() {
     const [date, setDate] = useState(new Date());
 
     const [holidays, setHolidays] = useState(holiday_list);
-    const [offList, setOfflist] = useState([]);
+    const [offList, setOffList] = useState([]);
+    const [tab, setTab] = useState(null);
 
     useEffect( () => {
         let temp = [];
         holidays.map((instant, index) => {
+            let id = instant.id;
             instant.date.map((ins, ind)=> {
-                temp.push(ins);
+                temp.push({date: ins, id: id});
             })
         });
-        setOfflist(temp);
+        setOffList(temp);
     }, []);
 
     const onChange = () => {
     };
 
     const activateTab = (value, event) => {
-        console.log(value);
+        offList.map((instant, index) => {
+            if (dayjs(instant.date).format('DD-MM-YYYY') === dayjs(value).format('DD-MM-YYYY')) {
+                setDate(value);
+                setTab(instant.id);
+            }
+        });
     };
 
     const setNewDate = (date) => {
@@ -35,9 +42,14 @@ export default function Home() {
 
    const tileClassName = ({ date, view }) => {
         // Add class to tiles in month view only
-       if (offList.find(dDate => (dayjs(dDate).format('DD-MM-YYYY') === dayjs(date).format('DD-MM-YYYY')))) {
+       if (offList.find(dDate => (dayjs(dDate.date).format('DD-MM-YYYY') == dayjs(date).format('DD-MM-YYYY')))) {
            return 'holiday';
        }
+       /*offList.map((instant, index) => {
+           if (dayjs(instant.date).format('DD-MM-YYYY') === dayjs(date).format('DD-MM-YYYY')) {
+               return 'holiday'
+           }
+       });*/
     };
 
 
@@ -52,7 +64,7 @@ export default function Home() {
 
       </Head>
 
-        <Sidebar setDate={setNewDate}/>
+        <Sidebar tab={tab} setDate={setNewDate}/>
       <main>
         <h1 className="title">
           Welcome to Holiday Calendar
