@@ -32,6 +32,7 @@ export default function Home() {
         offList.map((instant, index) => {
             if (dayjs(instant.date).format('DD-MM-YYYY') === dayjs(value).format('DD-MM-YYYY')) {
                 setTab(instant.id);
+                setNewDate(value);
             }
         });
         setSelectedMonth(value.getMonth());
@@ -83,7 +84,7 @@ export default function Home() {
                     activeStartDate={date}
                     tileClassName={tileClassName}
                     calendarType='Hebrew'
-                    // onClickDay={activateTab}
+                    onClickDay={activateTab}
                     minDetail='year'
                 />
             </div>
