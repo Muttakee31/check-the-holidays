@@ -64,7 +64,7 @@
 
 .react-calendar {
     border: 1px solid #eaeaea;
-    box-shadow: 3px 6px 20px 0 rgba(0,0,0,.03);
+    box-shadow: 0 30px 40px 0 rgba(16, 36, 94, 0.2);
 }
 
 .main-content.sidebar-collapsed #sidebar .menus a {

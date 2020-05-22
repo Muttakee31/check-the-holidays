@@ -12,6 +12,7 @@ export default function Home() {
     const [holidays, setHolidays] = useState(holiday_list);
     const [offList, setOffList] = useState([]);
     const [tab, setTab] = useState(null);
+    const [selectedMonth, setSelectedMonth] = useState(null);
 
     useEffect( () => {
         let temp = [];
@@ -30,10 +31,11 @@ export default function Home() {
     const activateTab = (value, event) => {
         offList.map((instant, index) => {
             if (dayjs(instant.date).format('DD-MM-YYYY') === dayjs(value).format('DD-MM-YYYY')) {
-                setDate(value);
                 setTab(instant.id);
             }
         });
+        setSelectedMonth(value.getMonth());
+        //console.log(value.getMonth());
     };
 
     const setNewDate = (date) => {
@@ -42,8 +44,10 @@ export default function Home() {
 
    const tileClassName = ({ date, view }) => {
         // Add class to tiles in month view only
-       if (offList.find(dDate => (dayjs(dDate.date).format('DD-MM-YYYY') == dayjs(date).format('DD-MM-YYYY')))) {
-           return 'holiday';
+       if (view === 'month') {
+           if (offList.find(dDate => (dayjs(dDate.date).format('DD-MM-YYYY') == dayjs(date).format('DD-MM-YYYY')))) {
+               return 'holiday';
+           }
        }
        /*offList.map((instant, index) => {
            if (dayjs(instant.date).format('DD-MM-YYYY') === dayjs(date).format('DD-MM-YYYY')) {
@@ -65,8 +69,8 @@ export default function Home() {
       </Head>
 
         <div className='row container'>
-            <div className='col-xs-6 col-sm-3'>
-                <Sidebar tab={tab} setDate={setNewDate}/>
+            <div className='col-xs-6 col-sm-3' style={{paddingLeft: 0}}>
+                <Sidebar tab={tab} setNewDate={setNewDate} selectedMonth={selectedMonth}/>
             </div>
             <div className='col-xs-6 col-sm-9 calendar-container'>
                 <h1 className="title">
@@ -76,9 +80,11 @@ export default function Home() {
                 <Calendar
                     onChange={onChange}
                     value={date}
+                    activeStartDate={date}
                     tileClassName={tileClassName}
                     calendarType='Hebrew'
-                    onClickDay={activateTab}
+                    // onClickDay={activateTab}
+                    minDetail='year'
                 />
             </div>
         </div>

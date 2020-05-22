@@ -143,6 +143,7 @@ export const holiday_list = [
     {
         id: 15,
         type: 1,
+        month: 11,
         date: [new Date(2020, 11, 31)],
         title: "Bank holiday"
     },
