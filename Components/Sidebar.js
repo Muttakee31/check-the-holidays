@@ -10,8 +10,8 @@ const Sidebar = ({tab, selectedMonth, setNewDate}) => {
     const [month, setMonth] = useState("");
 
     const switchTab = (index, date) => {
-        activateTab(index);
-        setNewDate(date);
+        //activateTab(index);
+        //setNewDate(date);
     };
 
     useEffect(() => {
@@ -75,7 +75,7 @@ const Sidebar = ({tab, selectedMonth, setNewDate}) => {
                     visibleHolidayList.map((instant, index)=>{
                         return (
                             <div className={Number(activeTab) === instant.id?'active-tab':''} onClick={()=> switchTab(instant.id, instant.date[0])}
-                                 style={{padding: '20px 8px', cursor:'pointer', borderBottom: '1px solid #f2f2f2'}}>
+                                 style={{padding: '20px 8px', boxShadow:'0 4px 29px 0 rgba(0,0,0,.05)'}}>
                                 <div className='row'>
                                     <div className='col'>
                                         {instant.title}

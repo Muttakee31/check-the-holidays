@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import {Calendar} from "react-calendar";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {holiday_list} from "../config";
 import Sidebar from "../Components/Sidebar";
 import dayjs from "dayjs";
@@ -69,19 +69,18 @@ export default function Home() {
 
       </Head>
 
-        <div className='row container'>
-            <div className='col-xs-6 col-sm-3' style={{paddingLeft: 0}}>
+        <div className='full-container'>
+            <div style={{paddingLeft: 0}}>
                 <Sidebar tab={tab} setNewDate={setNewDate} selectedMonth={selectedMonth}/>
             </div>
-            <div className='col-xs-6 col-sm-9 calendar-container'>
+            <div className='calendar-container'>
                 <h1 className="title">
                     Welcome to Holiday Calendar
                 </h1>
 
                 <Calendar
-                    onChange={onChange}
                     value={date}
-                    activeStartDate={date}
+                    onChange={onChange}
                     tileClassName={tileClassName}
                     calendarType='Hebrew'
                     onClickDay={activateTab}

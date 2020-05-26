@@ -21,10 +21,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 #sidebar {
     height: 100vh;
+    min-width: 300px;
     z-index: 999;
     transition: all 0.3s;
     display: flex;
@@ -106,8 +108,9 @@
 }
 
 .custom-selector-container {
-    width: 480px;
-    margin-left: 10px;
+    width: 95% !important;
+    margin-right: 13px;
+    margin-left: 3px;
 }
 
 .custom-selector-container:nth-child(1), .custom-selector-container:nth-child(2) {
@@ -127,7 +130,7 @@
     background: #f0f1f2;
     border-radius: 8px;
     border: 0;
-    padding: 12px 25px;
+    padding: 12px 2px;
     height: 48px;
 
     /*@include breakpoint(small-up) {
@@ -148,9 +151,11 @@
     height: 44px;
 }*/
 
-.container {
-    min-height: 100vh;
+.full-container {
+    display: flex;
+    flex-flow: row;
 }
+
 
 main {
     padding: 5rem 0;
