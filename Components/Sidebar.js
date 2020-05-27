@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {holiday_list, months} from "../config";
 import dayjs from "dayjs";
 
-const Sidebar = ({tab, selectedMonth, setNewDate}) => {
+const Sidebar = ({tab, selectedMonth, setNewDate, setStartDate}) => {
 
     const [activeTab, activateTab] = useState(null);
     const [holidayList, setHolidayList] = useState([]);
@@ -10,8 +10,9 @@ const Sidebar = ({tab, selectedMonth, setNewDate}) => {
     const [month, setMonth] = useState("");
 
     const switchTab = (index, date) => {
-        //activateTab(index);
-        //setNewDate(date);
+        activateTab(index);
+        setNewDate(date);
+        setStartDate(date);
     };
 
     useEffect(() => {

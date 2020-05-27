@@ -1,14 +1,14 @@
 import Head from 'next/head'
 import {Calendar} from "react-calendar";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {holiday_list} from "../config";
 import Sidebar from "../Components/Sidebar";
 import dayjs from "dayjs";
 
 
 export default function Home() {
-    const [date, setDate] = useState(new Date());
-
+    const [date, setDate] = useState(undefined);
+    const [startDate, setStartDate] = useState(undefined);
     const [holidays, setHolidays] = useState(holiday_list);
     const [offList, setOffList] = useState([]);
     const [tab, setTab] = useState(null);
@@ -25,8 +25,6 @@ export default function Home() {
         setOffList(temp);
     }, []);
 
-    const onChange = () => {
-    };
 
     const activateTab = (value, event) => {
         offList.map((instant, index) => {
@@ -35,12 +33,17 @@ export default function Home() {
                 setNewDate(value);
             }
         });
+        setStartDate(value);
         setSelectedMonth(value.getMonth());
         //console.log(value.getMonth());
     };
 
     const setNewDate = (date) => {
         setDate(date);
+    };
+
+    const changeDate = ({ activeStartDate, view }) => {
+        setStartDate(activeStartDate);
     };
 
    const tileClassName = ({ date, view }) => {
@@ -71,7 +74,7 @@ export default function Home() {
 
         <div className='full-container'>
             <div style={{paddingLeft: 0}}>
-                <Sidebar tab={tab} setNewDate={setNewDate} selectedMonth={selectedMonth}/>
+                <Sidebar tab={tab} setNewDate={setNewDate} setStartDate={setStartDate} selectedMonth={selectedMonth}/>
             </div>
             <div className='calendar-container'>
                 <h1 className="title">
@@ -80,7 +83,8 @@ export default function Home() {
 
                 <Calendar
                     value={date}
-                    onChange={onChange}
+                    activeStartDate={startDate}
+                    onActiveStartDateChange={changeDate}
                     tileClassName={tileClassName}
                     calendarType='Hebrew'
                     onClickDay={activateTab}
