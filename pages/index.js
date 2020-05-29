@@ -73,9 +73,9 @@ export default function Home() {
       </Head>
 
         <div className='full-container'>
-            <div style={{paddingLeft: 0}}>
-                <Sidebar tab={tab} setNewDate={setNewDate} setStartDate={setStartDate} selectedMonth={selectedMonth}/>
-            </div>
+
+            <Sidebar tab={tab} setNewDate={setNewDate} setStartDate={setStartDate} selectedMonth={selectedMonth}/>
+
             <div className='calendar-container'>
                 <h1 className="title">
                     Welcome to Holiday Calendar
