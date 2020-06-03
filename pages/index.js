@@ -69,6 +69,13 @@ export default function Home() {
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossOrigin="anonymous" />
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+          <meta name="apple-mobile-web-app-title" content="Weather PWA" />
+          <link rel="apple-touch-icon" href="/icons/icon-128.png" />
+          <meta name="description" content="A sample weather app" />
+          <meta name="theme-color" content="#2F3BA2" />
 
       </Head>
 

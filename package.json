@@ -10,6 +10,7 @@
   "dependencies": {
     "dayjs": "^1.8.27",
     "next": "9.4.0",
+    "next-pwa": "^2.5.0",
     "react": "16.13.1",
     "react-calendar": "^3.1.0",
     "react-dom": "16.13.1"

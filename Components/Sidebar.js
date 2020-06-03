@@ -76,7 +76,7 @@ const Sidebar = ({tab, selectedMonth, setNewDate, setStartDate}) => {
                     visibleHolidayList.map((instant, index)=>{
                         return (
                             <div className={Number(activeTab) === instant.id?'active-tab':''} onClick={()=> switchTab(instant.id, instant.date[0])}
-                                 style={{padding: '20px 8px', boxShadow:'0 4px 29px 0 rgba(0,0,0,.05)'}}>
+                                 style={{padding: '20px 8px', cursor: 'pointer', boxShadow:'0 4px 29px 0 rgba(0,0,0,.05)'}}>
                                 <div className='row'>
                                     <div className='col'>
                                         {instant.title}
