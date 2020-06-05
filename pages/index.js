@@ -1,35 +1,46 @@
 import Head from 'next/head'
 import {Calendar} from "react-calendar";
 import React, {useEffect, useState} from "react";
-import {holiday_list} from "../config";
+import {BaseURL} from "../config";
 import Sidebar from "../Components/Sidebar";
 import dayjs from "dayjs";
-
+import axios from 'axios';
 
 export default function Home() {
     const [date, setDate] = useState(undefined);
     const [startDate, setStartDate] = useState(undefined);
-    const [holidays, setHolidays] = useState(holiday_list);
+    const [holidays, setHolidays] = useState([]);
     const [offList, setOffList] = useState([]);
     const [tab, setTab] = useState(null);
     const [selectedMonth, setSelectedMonth] = useState(null);
+    const [loader, setLoader] = useState(false);
 
     useEffect( () => {
         let temp = [];
-        holidays.map((instant, index) => {
-            let id = instant.id;
-            instant.date.map((ins, ind)=> {
-                temp.push({date: ins, id: id});
-            })
+        setLoader(true);
+        axios.get(BaseURL+'/api/holidays.js').then(response => {
+            if (response.status === 200) {
+                setHolidays(response.data.holidays);
+                response.data.holidays.map((instant, index) => {
+                    let id = instant._id;
+                    instant.date.map((ins, ind)=> {
+                        temp.push({date: ins, id: id});
+                    })
+                });
+                setOffList(temp);
+                setLoader(false);
+            }
+        }).catch(e => {
+            setLoader(false);
+            console.log(e);
         });
-        setOffList(temp);
     }, []);
 
 
     const activateTab = (value, event) => {
         offList.map((instant, index) => {
             if (dayjs(instant.date).format('DD-MM-YYYY') === dayjs(value).format('DD-MM-YYYY')) {
-                setTab(instant.id);
+                setTab(instant._id);
                 setNewDate(value);
             }
         });
@@ -72,16 +83,30 @@ export default function Home() {
           <link rel="manifest" href="/manifest.json" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-          <meta name="apple-mobile-web-app-title" content="Weather PWA" />
+          <meta name="apple-mobile-web-app-title" content="Check the holidays" />
           <link rel="apple-touch-icon" href="/icons/icon-128.png" />
           <meta name="description" content="A sample weather app" />
           <meta name="theme-color" content="#2F3BA2" />
+
+          <meta name='twitter:card' content='summary' />
+          <meta name='twitter:url' content='https://check-the-holidays.now.sh' />
+          <meta name='twitter:title' content='Check the holidays' />
+          <meta name='twitter:description' content='Get to know your next free day in few clicks!' />
+          <meta name='twitter:image' content='https://check-the-holidays.now.sh/static/icons/icon-128.png' />
+          <meta name='twitter:creator' content='' />
+          <meta property='og:type' content='website' />
+          <meta property='og:title' content='Check the holidays' />
+          <meta property='og:description' content='Get to know your next free day in few clicks' />
+          <meta property='og:site_name' content='Check the holidays' />
+          <meta property='og:url' content='https://check-the-holidays.now.sh' />
+          <meta property='og:image' content='https://check-the-holidays.now.sh/static/icons/apple-touch-icon.png' />
 
       </Head>
 
         <div className='full-container'>
 
-            <Sidebar tab={tab} setNewDate={setNewDate} setStartDate={setStartDate} selectedMonth={selectedMonth}/>
+            <Sidebar tab={tab} setNewDate={setNewDate} holidays={holidays} loader={loader}
+                     setStartDate={setStartDate} selectedMonth={selectedMonth}/>
 
             <div className='calendar-container'>
                 <h1 className="title">

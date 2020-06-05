@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {holiday_list, months} from "../config";
+import {months} from "../config";
 import dayjs from "dayjs";
 
-const Sidebar = ({tab, selectedMonth, setNewDate, setStartDate}) => {
+const Sidebar = ({tab, holidays, selectedMonth, setNewDate, setStartDate, loader}) => {
 
     const [activeTab, activateTab] = useState(null);
     const [holidayList, setHolidayList] = useState([]);
@@ -11,13 +11,14 @@ const Sidebar = ({tab, selectedMonth, setNewDate, setStartDate}) => {
 
     const switchTab = (index, date) => {
         activateTab(index);
-        setNewDate(date);
-        setStartDate(date);
+        const temp = dayjs(date).toDate();
+        setNewDate(temp);
+        setStartDate(temp);
     };
 
     useEffect(() => {
-        setHolidayList(holiday_list);
-        setVisibleHolidayList(holiday_list);
+        setHolidayList(holidays);
+        setVisibleHolidayList(holidays);
         if (tab!== null) {
             activateTab(tab);
         }
@@ -25,7 +26,7 @@ const Sidebar = ({tab, selectedMonth, setNewDate, setStartDate}) => {
             setVisibleHolidayList(holidayList.filter( instant => (instant.month === Number(selectedMonth))));
             setMonth(selectedMonth);
         }
-    }, [tab, selectedMonth] );
+    }, [tab, holidays, selectedMonth] );
 
     const filterHolidayList = (e) => {
         let val = e.target.value;
@@ -34,7 +35,7 @@ const Sidebar = ({tab, selectedMonth, setNewDate, setStartDate}) => {
             let arr = holidayList.filter( instant => (instant.month == val));
             setVisibleHolidayList(arr);
             if (arr.length !== 0) {
-                switchTab(arr[0].id, arr[0].date[0]);
+                switchTab(arr[0]._id, arr[0].date[0]);
             }
             else {
                 setNewDate(new Date(2020, val, 1));
@@ -65,21 +66,30 @@ const Sidebar = ({tab, selectedMonth, setNewDate, setStartDate}) => {
             <div className='row'>
                 <div className='col' style={{borderBottom: '1px solid #f2f2f2', marginLeft: '12px', padding:'12px', fontWeight:'520', fontSize: '1.4em'}}>
                     List of holidays
+                    <div style={{fontSize: '10px'}}> <span style={{color:'red'}}>*</span> marked holidays depend on moon sighting</div>
                 </div>
             </div>
             <div className="menus" style={{overflowX: 'hidden'}}>
-                {visibleHolidayList.length === 0 ?
+                {loader === true?
+                    <div className='mx-auto' style={{height: '50px', width: '50px', marginTop: '80px'}}>
+                        <div className="spinner-border text-info" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                    :
+                    visibleHolidayList.length === 0 ?
                     <div style={{textAlign: 'center', fontSize: '1.15em', marginTop: '40px'}}>
                         Bad news! No off-day for you!!
                     </div>
                     :
                     visibleHolidayList.map((instant, index)=>{
                         return (
-                            <div className={Number(activeTab) === instant.id?'active-tab':''} onClick={()=> switchTab(instant.id, instant.date[0])}
+                            <div className={activeTab === instant._id?'active-tab':''} onClick={()=> switchTab(instant._id, instant.date[0])}
                                  style={{padding: '20px 8px', cursor: 'pointer', boxShadow:'0 4px 29px 0 rgba(0,0,0,.05)'}}>
                                 <div className='row'>
                                     <div className='col'>
                                         {instant.title}
+                                        {instant.type === 2 && <span style={{color:'red'}}>*</span>}
                                     </div>
                                 </div>
 

@@ -2,6 +2,10 @@ export const holidayss = ['21', '22', '23', '29'];
 
 export const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+// export const BaseURL = "http://localhost:3000";
+
+export const BaseURL = "https://holiday-backend.now.sh";
+
 export const holiday_list = [
     {
       id: 16,
