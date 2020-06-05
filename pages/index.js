@@ -40,7 +40,7 @@ export default function Home() {
     const activateTab = (value, event) => {
         offList.map((instant, index) => {
             if (dayjs(instant.date).format('DD-MM-YYYY') === dayjs(value).format('DD-MM-YYYY')) {
-                setTab(instant._id);
+                setTab(instant.id);
                 setNewDate(value);
             }
         });
@@ -68,6 +68,7 @@ export default function Home() {
            if (dayjs(instant.date).format('DD-MM-YYYY') === dayjs(date).format('DD-MM-YYYY')) {
                return 'holiday'
            }
+           style={{background: 'url(/images/download.png) no-repeat center center fixed'}}
        });*/
     };
 
@@ -76,7 +77,7 @@ export default function Home() {
     <div>
       <Head>
         <title>Know official holidays</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/images/icons/icon-72x72.png" />
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossOrigin="anonymous" />

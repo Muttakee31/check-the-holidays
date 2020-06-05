@@ -6,13 +6,13 @@
 }
 
 .react-calendar__tile--active {
-    background: #006edc !important;
+    background: #60b0f4 !important;
     color: white !important;
 }
 
 .active-tab {
     color: white;
-    background-color: #006edc;
+    background-color: #60b0f4;
 }
 
 .calendar-container {
