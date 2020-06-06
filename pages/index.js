@@ -85,22 +85,22 @@ export default function Home() {
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="apple-mobile-web-app-status-bar-style" content="black" />
           <meta name="apple-mobile-web-app-title" content="Check the holidays" />
-          <link rel="apple-touch-icon" href="/icons/icon-128.png" />
-          <meta name="description" content="A sample weather app" />
+          <link rel="apple-touch-icon" href="/images/icons/icon-192x192.png" />
+          <meta name="description" content="Check when you get that precious off-day" />
           <meta name="theme-color" content="#2F3BA2" />
 
           <meta name='twitter:card' content='summary' />
           <meta name='twitter:url' content='https://check-the-holidays.now.sh' />
           <meta name='twitter:title' content='Check the holidays' />
           <meta name='twitter:description' content='Get to know your next free day in few clicks!' />
-          <meta name='twitter:image' content='https://check-the-holidays.now.sh/static/icons/icon-128.png' />
+          <meta name='twitter:image' content='https://check-the-holidays.now.sh/images/icons/icon-512x512.png' />
           <meta name='twitter:creator' content='' />
           <meta property='og:type' content='website' />
           <meta property='og:title' content='Check the holidays' />
           <meta property='og:description' content='Get to know your next free day in few clicks' />
           <meta property='og:site_name' content='Check the holidays' />
           <meta property='og:url' content='https://check-the-holidays.now.sh' />
-          <meta property='og:image' content='https://check-the-holidays.now.sh/static/icons/apple-touch-icon.png' />
+          <meta property='og:image' content='https://check-the-holidays.now.sh/images/icons/icon-384x384.png' />
 
       </Head>
 
