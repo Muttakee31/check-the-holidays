@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {months} from "../config";
 import dayjs from "dayjs";
 
-const Sidebar = ({tab, holidays, selectedMonth, setNewDate, setStartDate, loader}) => {
+const Sidebar = ({tab, holidays, selectedMonth, setNewDate, setStartDate, loader, setSelectedMonth}) => {
 
     const [activeTab, activateTab] = useState(null);
     const [holidayList, setHolidayList] = useState([]);
@@ -14,6 +14,7 @@ const Sidebar = ({tab, holidays, selectedMonth, setNewDate, setStartDate, loader
         const temp = dayjs(date).toDate();
         setNewDate(temp);
         setStartDate(temp);
+        const month = dayjs(date).month();
     };
 
     useEffect(() => {
@@ -31,6 +32,7 @@ const Sidebar = ({tab, holidays, selectedMonth, setNewDate, setStartDate, loader
     const filterHolidayList = (e) => {
         let val = e.target.value;
         setMonth(val);
+        setSelectedMonth(Number(val));
         if (val.length !== 0) {
             let arr = holidayList.filter( instant => (instant.month == val));
             setVisibleHolidayList(arr);

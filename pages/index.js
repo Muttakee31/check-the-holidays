@@ -59,7 +59,6 @@ export default function Home() {
     };
 
     const getImage = () => {
-        console.log(selectedMonth);
         let image = "";
         if (selectedMonth === 3 || selectedMonth === 4) {
             image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/summer.jpg)';
@@ -130,10 +129,10 @@ export default function Home() {
       </Head>
 
         <div className='full-container'
-             style={{backgroundImage: getImage()}}>
+             style={{backgroundImage: getImage(), transition: 'background-image 0.7s ease-in'}}>
 
             <Sidebar tab={tab} setNewDate={setNewDate} holidays={holidays} loader={loader}
-                     setStartDate={setStartDate} selectedMonth={selectedMonth}/>
+                     setStartDate={setStartDate} selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth}/>
 
             <div className='calendar-container'>
                 <h1 className="title">
