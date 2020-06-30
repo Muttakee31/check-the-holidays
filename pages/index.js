@@ -28,6 +28,7 @@ export default function Home() {
                     })
                 });
                 setOffList(temp);
+                setSelectedMonth(new Date().getMonth());
                 setLoader(false);
             }
         }).catch(e => {
@@ -56,6 +57,30 @@ export default function Home() {
     const changeDate = ({ activeStartDate, view }) => {
         setStartDate(activeStartDate);
     };
+
+    const getImage = () => {
+        console.log(selectedMonth);
+        let image = "";
+        if (selectedMonth === 3 || selectedMonth === 4) {
+            image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/summer.jpg)';
+            }
+        else if (selectedMonth === 5 || selectedMonth === 6) {
+            image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/rainy_season.jpg)';
+        }
+        else if (selectedMonth === 7 || selectedMonth === 8) {
+            image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/autumn.jpg)';
+        }
+        else if (selectedMonth === 9 || selectedMonth === 10) {
+            image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/late_autumn.jpg)';
+        }
+        else if (selectedMonth === 11 || selectedMonth === 0) {
+            image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/winter.jpg)';
+        }
+        else if (selectedMonth === 1 || selectedMonth === 2) {
+            image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/spring.jpg)';
+        }
+        return image;
+}
 
    const tileClassName = ({ date, view }) => {
         // Add class to tiles in month view only
@@ -104,7 +129,8 @@ export default function Home() {
 
       </Head>
 
-        <div className='full-container'>
+        <div className='full-container'
+             style={{backgroundImage: getImage()}}>
 
             <Sidebar tab={tab} setNewDate={setNewDate} holidays={holidays} loader={loader}
                      setStartDate={setStartDate} selectedMonth={selectedMonth}/>

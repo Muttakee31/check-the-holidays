@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+}
+
+
 .holiday {
     color: red;
     background-color: rgba(255, 181, 196, 0.42);
@@ -260,11 +269,15 @@ a {
     }
 }
 
-html,
-body {
-    padding: 0;
-    margin: 0;
-    font-family: "Poppins", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-    sans-serif;
+@media screen and (min-width: 764px) {
+    .full-container {
+        background-repeat: no-repeat;
+        background-position: 50%;
+        background-size: cover;
+        background-attachment: fixed;
+        background-origin: initial;
+        background-clip: initial;
+        background-color: initial;
+        overflow: hidden;
+    }
 }
