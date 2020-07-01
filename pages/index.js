@@ -19,7 +19,8 @@ export default function Home() {
     useEffect(  () => {
         let temp = [];
         setLoader(true);
-        setMonthAndBackground(new Date().getMonth());
+        setSelectedMonth(new Date().getMonth());
+        //setMonthAndBackground(new Date().getMonth());
         axios.get(BaseURL+'/api/holidays.js').then(response => {
             if (response.status === 200) {
                 setHolidays(response.data.holidays);
@@ -36,7 +37,7 @@ export default function Home() {
             setLoader(false);
             console.log(e);
         });
-        getImage();
+        getImage(new Date().getMonth());
     }, []);
 
     const setMonthAndBackground = (val) => {
@@ -143,8 +144,8 @@ export default function Home() {
         <div className='full-container'
              style={{backgroundImage: backgroundImage, transition: 'background-image 0.7s ease-in'}}>
 
-            <Sidebar tab={tab} setNewDate={setNewDate} holidays={holidays} loader={loader}
-                     setStartDate={setStartDate} selectedMonth={selectedMonth} setSelectedMonth={setMonthAndBackground}/>
+            <Sidebar tab={tab} setNewDate={setNewDate} holidays={holidays} loader={loader} getImage={getImage}
+                     setStartDate={setStartDate} selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth}/>
 
             <div className='calendar-container'>
                 <h1 className="title">
