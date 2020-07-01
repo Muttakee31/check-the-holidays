@@ -14,10 +14,12 @@ export default function Home() {
     const [tab, setTab] = useState(null);
     const [selectedMonth, setSelectedMonth] = useState(null);
     const [loader, setLoader] = useState(false);
+    const [backgroundImage, setBackgroundImage] = useState('');
 
-    useEffect( () => {
+    useEffect(  () => {
         let temp = [];
         setLoader(true);
+        setMonthAndBackground(new Date().getMonth());
         axios.get(BaseURL+'/api/holidays.js').then(response => {
             if (response.status === 200) {
                 setHolidays(response.data.holidays);
@@ -28,14 +30,19 @@ export default function Home() {
                     })
                 });
                 setOffList(temp);
-                setSelectedMonth(new Date().getMonth());
                 setLoader(false);
             }
         }).catch(e => {
             setLoader(false);
             console.log(e);
         });
+        getImage();
     }, []);
+
+    const setMonthAndBackground = (val) => {
+        setSelectedMonth(val);
+        getImage(val);
+    }
 
 
     const activateTab = (value, event) => {
@@ -46,7 +53,7 @@ export default function Home() {
             }
         });
         setStartDate(value);
-        setSelectedMonth(value.getMonth());
+        setMonthAndBackground(value.getMonth());
         //console.log(value.getMonth());
     };
 
@@ -58,27 +65,32 @@ export default function Home() {
         setStartDate(activeStartDate);
     };
 
-    const getImage = () => {
+    const getImage = (mon) => {
         let image = "";
-        if (selectedMonth === 3 || selectedMonth === 4) {
-            image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/summer.jpg)';
+        if (typeof window !== 'undefined' && window.innerWidth > 764) {
+            console.log(window.innerWidth);
+            if (mon === 3 || mon === 4) {
+                image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/summer.jpg)';
+                setBackgroundImage(image);
+            } else if (mon === 5 || mon === 6) {
+                image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/rainy_season.jpg)';
+                setBackgroundImage(image);
+            } else if (mon === 7 || mon === 8) {
+                image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/autumn.jpg)';
+                setBackgroundImage(image);
+            } else if (mon === 9 || mon === 10) {
+                image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/late_autumn.jpg)';
+                setBackgroundImage(image);
+            } else if (mon === 11 || mon === 0) {
+                image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/winter.jpg)';
+                setBackgroundImage(image);
+            } else if (mon === 1 || mon === 2) {
+                image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/spring.jpg)';
+                setBackgroundImage(image);
             }
-        else if (selectedMonth === 5 || selectedMonth === 6) {
-            image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/rainy_season.jpg)';
+
         }
-        else if (selectedMonth === 7 || selectedMonth === 8) {
-            image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/autumn.jpg)';
-        }
-        else if (selectedMonth === 9 || selectedMonth === 10) {
-            image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/late_autumn.jpg)';
-        }
-        else if (selectedMonth === 11 || selectedMonth === 0) {
-            image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/winter.jpg)';
-        }
-        else if (selectedMonth === 1 || selectedMonth === 2) {
-            image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/spring.jpg)';
-        }
-        return image;
+
 }
 
    const tileClassName = ({ date, view }) => {
@@ -100,9 +112,10 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Know official holidays</title>
-        <link rel="icon" href="/images/icons/icon-72x72.png" />
-          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+         <title>Know official holidays</title>
+         {/*<meta name="viewport" content="width=device-width,initial-scale=1" />*/}
+         <link rel="icon" href="/images/icons/icon-72x72.png" />
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossOrigin="anonymous" />
           <link rel="manifest" href="/manifest.json" />
@@ -118,7 +131,7 @@ export default function Home() {
           <meta name='twitter:title' content='Check the holidays' />
           <meta name='twitter:description' content='Get to know your next free day in few clicks!' />
           <meta name='twitter:image' content='https://check-the-holidays.now.sh/images/icons/icon-512x512.png' />
-          <meta name='twitter:creator' content='' />
+          <meta name='twitter:creator' content='Saad Al Muttakee' />
           <meta property='og:type' content='website' />
           <meta property='og:title' content='Check the holidays' />
           <meta property='og:description' content='Get to know your next free day in few clicks' />
@@ -129,10 +142,10 @@ export default function Home() {
       </Head>
 
         <div className='full-container'
-             style={{backgroundImage: getImage(), transition: 'background-image 0.7s ease-in'}}>
+             style={{backgroundImage: backgroundImage, transition: 'background-image 0.7s ease-in'}}>
 
             <Sidebar tab={tab} setNewDate={setNewDate} holidays={holidays} loader={loader}
-                     setStartDate={setStartDate} selectedMonth={selectedMonth} setSelectedMonth={setSelectedMonth}/>
+                     setStartDate={setStartDate} selectedMonth={selectedMonth} setSelectedMonth={setMonthAndBackground}/>
 
             <div className='calendar-container'>
                 <h1 className="title">
