@@ -68,7 +68,6 @@ export default function Home() {
     const getImage = (mon) => {
         let image = "";
         if (typeof window !== 'undefined' && window.innerWidth > 764) {
-            console.log(window.innerWidth);
             if (mon === 3 || mon === 4) {
                 image = 'linear-gradient(hsla(0,0%,100%,.5),hsla(0,0%,100%,.5)),url(images/background/summer.jpg)';
                 setBackgroundImage(image);
